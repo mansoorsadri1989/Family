@@ -26,7 +26,18 @@ jobs:
           if [ ! -f site/index.html ]; then
             d=$(dirname "$(find site -name index.html | head -1)")
             mv "$d"/* site/
+            rmdir "$d" || true
           fi
+          cat > site/firebase-config.js <<'EOF'
+          export const firebaseConfig = {
+            apiKey: "AIzaSyCnJsucdXiFioKep1JSaHlowoBe3FEGplI",
+            authDomain: "family-circle-605e1.firebaseapp.com",
+            projectId: "family-circle-605e1",
+            storageBucket: "family-circle-605e1.firebasestorage.app",
+            messagingSenderId: "882713205046",
+            appId: "1:882713205046:web:74312ff787a47ad147bb97"
+          };
+          EOF
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
